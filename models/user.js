@@ -12,7 +12,7 @@ const UserSchema = new Schema({
         enum: ["User", "Member", "Admin"],
         default: "User"
     },
-    messages: { type: Schema.Types.ObjectId, ref: "Message", required: true}
+    messages: { type: Schema.Types.ObjectId, ref: "Message"}
 })
 
 UserSchema.virtual("url").get(function() {
