@@ -80,7 +80,7 @@ body {
   padding-bottom: calc(var(--input-padding-y) / 3);
 }
 
-.form-label-group input:notb(:placeholder-shown) ~ label {
+.form-label-group input:not(:placeholder-shown) ~ label {
   padding-top: calc(var(--input-padding-y) / 3);
   padding-bottom: calc(var(--input-padding-y) / 3);
   font-size: 12px;
@@ -89,4 +89,9 @@ body {
 
 button.btn-block {
   width: 100%;
+}
+
+.errorType {
+  color: #990000;
+  font-size: smaller;
 }
