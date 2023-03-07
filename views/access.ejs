@@ -18,8 +18,17 @@
       <h1 class="h3 mb-3 font-weight-normal">Membership Access</h1>
       <label class="sr">Username: <strong><%=username%></strong></label>
       <label for="secretWord" class="sr-only">Password</label>
-      <input type="password" id="secretWord" name="secretWord" class="form-control" placeholder="Secret word..." required>
+      <input type="password" id="secretWord" name="secretWord" class="form-control" placeholder="Secret word..." >
       <div class="checkbox mb-3">
+        <% if (errors) {%>
+          <ul>
+              <%errors.forEach(error=> {%>
+                  <li class="errorType">
+                      <%=error.msg%>
+                  </li>
+                  <%})%>
+          </ul>
+          <%}%>
         <!-- <label>
           <input type="checkbox" value="remember-me"> Remember me
         </label> -->
