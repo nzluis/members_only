@@ -14,27 +14,33 @@
   </head>
 
   <body class="text-center">
-    <form class="form-signin" method="post">
-      <h1 class="h3 mb-3 font-weight-normal">Membership Access</h1>
-      <label class="sr">Username: <strong><%=username%></strong></label>
-      <label for="secretWord" class="sr-only">Password</label>
-      <input type="password" id="secretWord" name="secretWord" class="form-control" placeholder="Secret word..." >
-      <div class="checkbox mb-3">
-        <% if (errors) {%>
-          <ul>
-              <%errors.forEach(error=> {%>
-                  <li class="errorType">
-                      <%=error.msg%>
-                  </li>
-                  <%})%>
-          </ul>
-          <%}%>
-        <!-- <label>
-          <input type="checkbox" value="remember-me"> Remember me
-        </label> -->
-      </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
-    </form>
+    <div>
+      <form class="form-signin" method="post">
+        <h1 class="h3 mb-3 font-weight-normal">Membership Access</h1>
+        <label class="sr">Username: <strong><%=username%></strong></label>
+        <label for="secretWord" class="sr-only">Password</label>
+        <input type="password" id="secretWord" name="secretWord" class="form-control" placeholder="Secret word..." >
+        <div class="checkbox mb-3">
+          <% if (errors) {%>
+            <ul>
+                <%errors.forEach(error=> {%>
+                    <li class="errorType">
+                        <%=error.msg%>
+                    </li>
+                    <%})%>
+            </ul>
+            <%}%>
+          <!-- <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label> -->
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      
+      </form>
+      <form class="" action="/">
+        <input type="submit" class="btn btn-sm btn-success" value="I don't have the secret word" />
+      </form>
+    </div>
+ 
   </body>
 </html>

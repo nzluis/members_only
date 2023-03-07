@@ -98,13 +98,11 @@ exports.user_update_status_post = [
                 res.render('access.ejs', { title: "Member access", username: user.username, errors: errors.array()})
             } else {
                 try {
-                    User.updateOne({ _id: req.params.id}, {"status": membership}).exec()
-                    .then(User.findById(req.params.id)
+                    User.findByIdAndUpdate( req.params.id, {"status": membership}, {new: true}).exec()
                     .then(updatedUser => {
                         console.log(updatedUser.status)
                         res.render("index", { title: "Home Logged", user: updatedUser})
                     })
-                    )
                 } catch(err) {
                     return next(err)
                 }
