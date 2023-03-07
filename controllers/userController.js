@@ -4,6 +4,7 @@ const async = require("async")
 const { check, body, validationResult } = require('express-validator');
 const validator = require("validator")
 const bcrypt = require('bcryptjs');
+require('dotenv').config()
 
 exports.user_create_get = (req, res) => {
     const errors = ''
@@ -60,10 +61,56 @@ exports.user_create_post =  [
 ]
 
 exports.user_update_status_get = (req, res, next) => {
-
-    res.render('access', { title: "Member access", username: req.params.id})
+    const errors = ''
+    User.findById(req.params.id).then(user => {
+        res.render('access', { title: "Member access", username: user.username, errors})
+    }).catch(err =>{
+        return next(err)
+    })
 }
 
-exports.user_update_status_post = (req, res, next) => {
-    res.send('ACCESS POST')
-}
+let membership = 'user'
+
+exports.user_update_status_post = [
+    check(
+        'secretWord',
+        "The code you inserted doesn't exist",
+      )
+    .exists()
+    .custom((value) => {
+        if (value === process.env.MEMBER_KEY) {
+            membership = 'Member'
+            return true
+        }
+        if (value === process.env.ADMIN_KEY) {
+            membership = 'Admin'
+            return true
+        }
+    }),
+    (req, res, next) => {
+        const errors = validationResult(req)
+        const hasErrors = !errors.isEmpty()
+        console.log(req.params.id)
+        User.findById( req.params.id ).then((user) => {
+            console.log(user)
+            if(hasErrors) {
+                console.log(user.status)
+                res.render('access.ejs', { title: "Member access", username: user.username, errors: errors.array()})
+            } else {
+                try {
+                    User.updateOne({ _id: req.params.id}, {"status": membership}).exec()
+                    .then(User.findById(req.params.id)
+                    .then(updatedUser => {
+                        console.log(updatedUser.status)
+                        res.render("index", { title: "Home Logged", user: updatedUser})
+                    })
+                    )
+                } catch(err) {
+                    return next(err)
+                }
+            }
+        }).catch(err => {
+            return next(err)
+        })
+    }
+]
