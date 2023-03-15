@@ -6,6 +6,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const engine = require('ejs-blocks')
 require('dotenv').config()
+const session = require("express-session")
+const passport = require("passport")
+const LocalStrategy = require("passport-local").Strategy
+const MongoStore = require('connect-mongo')
+
 
 const mongoDb = process.env.DATABASE_URL
 mongoose.connect(mongoDb, { useUnifiedTopology: true, useNewUrlParser: true })
@@ -22,11 +27,41 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
 
+app.use(session({
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: true,
+  store: MongoStore.create({
+    mongoUrl: process.env.DATABASE_URL,
+  }),
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 1},
+}))
+
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+require('./passport')
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+app.use((req, res, next) => {
+  console.log(req.session)
+  console.log(req.user)
+  next()
+})
+
+app.use(function(req, res, next) {
+  var msgs = req.session.messages || [];
+  res.locals.messages = msgs;
+  res.locals.hasMessages = !! msgs.length;
+  req.session.messages = [];
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/user', userRouter);
