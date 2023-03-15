@@ -10,6 +10,7 @@
   "dependencies": {
     "async": "^3.2.4",
     "bcryptjs": "^2.4.3",
+    "connect-mongo": "^4.6.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^16.0.3",
@@ -19,10 +20,12 @@
     "express-session": "^1.17.3",
     "express-validator": "^6.15.0",
     "http-errors": "~1.6.3",
+    "luxon": "^3.3.0",
     "mongoose": "^7.0.0",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.21",
     "passport": "^0.6.0",
+    "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "validator": "^13.9.0"
   }
