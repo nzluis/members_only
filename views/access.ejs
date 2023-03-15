@@ -17,7 +17,7 @@
     <div>
       <form class="form-signin" method="post">
         <h1 class="h3 mb-3 font-weight-normal">Membership Access</h1>
-        <label class="sr">Username: <strong><%=username%></strong></label>
+        <label class="sr"><strong><%=username%></strong>, do you know some secret word?</label>
         <label for="secretWord" class="sr-only">Password</label>
         <input type="password" id="secretWord" name="secretWord" class="form-control" placeholder="Secret word..." >
         <div class="checkbox mb-3">
@@ -27,9 +27,9 @@
                     <li class="errorType">
                         <%=error.msg%>
                     </li>
-                    <%})%>
+                <%})%>
             </ul>
-            <%}%>
+          <%}%>
           <!-- <label>
             <input type="checkbox" value="remember-me"> Remember me
           </label> -->
@@ -37,7 +37,7 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       
       </form>
-      <form class="" action="/">
+      <form class="" action="/user/login">
         <input type="submit" class="btn btn-sm btn-success" value="I don't have the secret word" />
       </form>
     </div>
