@@ -91,6 +91,10 @@ button.btn-block {
   width: 100%;
 }
 
+input.btn-block {
+  width: 100%;
+}
+
 .errorType {
   color: #990000;
   font-size: smaller;
